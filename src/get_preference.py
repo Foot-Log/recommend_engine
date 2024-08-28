@@ -10,10 +10,11 @@ def recommend(user_input, top_n=10):
     # 코사인 유사도 계산
 
     tfidfvectorizer = joblib.load('model/vectorizer.pkl')
+    tfidf_matrix = np.load('model/matrix.npy')
     preference_vector = tfidfvectorizer.transform([user_input]).toarray().tolist()
-    #sim_scores = cosine_similarity(preference_vector, tfidf_matrix).flatten()
+    sim_scores = cosine_similarity(preference_vector, tfidf_matrix).flatten()
     
     # 유사도 점수를 기준으로 정렬하여 가장 유사한 문서의 인덱스 찾기
-    #top_indices = np.argsort(sim_scores)[::-1][:top_n]
-    user = {user_input : preference_vector}
+    top_indices = np.argsort(sim_scores)[::-1][:top_n].tolist()
+    user = {user_input : top_indices}
     return user
