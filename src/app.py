@@ -4,7 +4,7 @@ import get_preference
 
 app = Flask(__name__)
 
-@app.route("/recommend", methods=['GET'])
+@app.route("/api/course/recommend", methods=['GET'])
 def model():
     # input parameter - 입력값 str으로 %20 구분해서 연결한 값
     input = request.args.get('input')
