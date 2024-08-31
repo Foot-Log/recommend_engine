@@ -3,8 +3,9 @@
 
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import pandas as pd
 import joblib
-import os
+import json
 
 def recommend(user_input, top_n=10):
     # 코사인 유사도 계산
@@ -16,5 +17,12 @@ def recommend(user_input, top_n=10):
     
     # 유사도 점수를 기준으로 정렬하여 가장 유사한 문서의 인덱스 찾기
     top_indices = np.argsort(sim_scores)[::-1][:top_n].tolist()
-    user = {user_input : top_indices}
+
+    json_file_path = 'data/course.json'
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        json_data = json.load(f)
+
+    result_list = [json_data[str(idx)] for idx in top_indices if str(idx) in json_data]
+
+    user = {user_input : result_list}
     return user
