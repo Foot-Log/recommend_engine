@@ -4,6 +4,11 @@ import get_preference
 
 app = Flask(__name__)
 
+@app.route("/")
+def root():
+    return "<h1 style='color:blue'>Hello There!</h1>"
+
+
 @app.route("/api/course/recommend", methods=['GET', 'POST'])
 def model():
     # input parameter - 입력값 str으로 %20 구분해서 연결한 값
