@@ -23,5 +23,4 @@ def recommend(user_input, top_n=10):
 
     result_list = [json_data[str(idx)] for idx in top_indices if str(idx) in json_data]
 
-    user = {'course_id' : result_list}
-    return user
+    return result_list
