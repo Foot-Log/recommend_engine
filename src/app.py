@@ -19,17 +19,21 @@ def root():
 @jwt_required()
 def model():
     # input parameter - 입력값 str으로 %20 구분해서 연결한 값
-    user = get_jwt_identity()
-    input = request.args.get('input')
-    if input:
-        input = ''.join(input.split('%20'))
-        prediction = {user:get_preference.recommend(user_input=input)}
+    if request.method == "POST":
+        user = get_jwt_identity()
+
+        payload = request.get_json()
+        input_list = payload['firstKeyword'].extend(payload['secondKeyword']).extend(payload['thirdKeyword'])
+        #input = request.args.get('input')
+        if input:
+            input = ''.join(input_list.split('%20'))
+            prediction = {user:get_preference.recommend(user_input=input)}
+            
+            # json 형식으로 변환
+        else:
+            
+            prediction = {'course_id': ['2547514', '2547399', '2549270', '2547444', '2547535', '2549163', '2549164', '2549273', '2549170', '2508718']}
         
-        # json 형식으로 변환
-    else:
-        
-        prediction = {'course_id': ['2547514', '2547399', '2549270', '2547444', '2547535', '2549163', '2549164', '2549273', '2549170', '2508718']}
-    
     return make_response(prediction, 200)
 
 if __name__=='__main__':
