@@ -28,8 +28,9 @@ def model():
     prediction = {}
     if request.method == "POST":
 #        user = get_jwt_identity()
-        app.logger.info("request: ", request.method, request.path, request.headers, request.get_data())
+        app.logger.info("request: ", request.method, request.path, request.headers)
         payload = request.get_json()
+        app.logger.info(payload)
         
         input_list = payload['firstKeyword'].extend(payload['secondKeyword']).extend(payload['thirdKeyword'])
         #input = request.args.get('input')
