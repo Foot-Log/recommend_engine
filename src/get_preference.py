@@ -9,9 +9,8 @@ import os
 
 def recommend(user_input, top_n=10):
     # 코사인 유사도 계산
-    print()
-    tfidf_matrix = np.load(os.getcwd()+'/src/model/matrix.npy')
-    tfidfvectorizer = joblib.load(os.getcwd()+'/src/model/vectorizer.pkl')
+    tfidf_matrix = np.load(os.path.dirname(os.path.abspath(__file__))+'/model/matrix.npy')
+    tfidfvectorizer = joblib.load(os.path.dirname(os.path.abspath(__file__))+'/model/vectorizer.pkl')
     
     preference_vector = tfidfvectorizer.transform([user_input]).toarray().tolist()
     sim_scores = cosine_similarity(preference_vector, tfidf_matrix).flatten()

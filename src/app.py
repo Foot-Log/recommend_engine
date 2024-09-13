@@ -31,7 +31,7 @@ def model():
             app.logger.info(f"Payload: {payload}")
         else:
             app.logger.info("No JSON payload or unable to parse JSON")
-            
+
         input_list = []
         for item in payload.values():
             input_list.extend(item)
@@ -44,4 +44,4 @@ def model():
     return make_response(prediction, 200)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5050, debug=False)
