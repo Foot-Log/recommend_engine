@@ -18,7 +18,7 @@ def recommend(user_input, top_n=10):
     # 유사도 점수를 기준으로 정렬하여 가장 유사한 문서의 인덱스 찾기
     top_indices = np.argsort(sim_scores)[::-1][:top_n].tolist()
 
-    json_file_path = os.getcwd() + '/src/data/course.json'
+    json_file_path = os.path.dirname(os.path.abspath(__file__))+'data/course.json'
     with open(json_file_path, 'r', encoding='utf-8') as f:
         json_data = json.load(f)
 
