@@ -1,15 +1,8 @@
-import joblib
-from flask import Flask, jsonify, request, make_response, abort
-# from flask_jwt_extended import (
-#     JWTManager, jwt_required, create_access_token, get_jwt_identity, unset_jwt_cookies, create_refresh_token, jwt_refresh_token_required,
-# )
+from flask import Flask, request, make_response
 import get_preference
 import json
 
 app = Flask(__name__)
-
-# app.config["JWT_SECRET_KEY"] = "super-secret"
-# jwt = JWTManager(app)
 
 if not app.debug:
     import logging
@@ -38,11 +31,11 @@ def model():
             app.logger.info(f"Payload: {payload}")
         else:
             app.logger.info("No JSON payload or unable to parse JSON")
+            
         input_list = []
         for item in payload.values():
             input_list.extend(item)
 
-        #input = request.args.get('input')
         if input_list:
             input = ' '.join(input_list)
             print(input)
@@ -51,4 +44,4 @@ def model():
     return make_response(prediction, 200)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=5050, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=False)
