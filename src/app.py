@@ -31,6 +31,7 @@ def model():
         payload = request.get_json()
         input_list = payload['firstKeyword'].extend(payload['secondKeyword']).extend(payload['thirdKeyword'])
         #input = request.args.get('input')
+        prediction = {}
         if input:
             input = ''.join(input_list.split('%20'))
             prediction = {'course_id':get_preference.recommend(user_input=input)}
