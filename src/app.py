@@ -27,11 +27,16 @@ def model():
     # input parameter - 입력값 str으로 %20 구분해서 연결한 값
     prediction = {}
     if request.method == "POST":
-#        user = get_jwt_identity()
-        app.logger.info("request: ", request.method, request.path, request.headers)
-        payload = request.get_json()
-        app.logger.info(payload)
+#        # 요청 정보 로깅 (f-string 사용)
+        app.logger.info(f"Request: Method={request.method}, Path={request.path}, Headers={request.headers}")
         
+        # JSON payload 로깅
+        payload = request.get_json(silent=True)  # 요청 본문이 JSON 형식일 경우만 로깅
+        if payload:
+            app.logger.info(f"Payload: {payload}")
+        else:
+            app.logger.info("No JSON payload or unable to parse JSON")
+
         input_list = payload['firstKeyword'].extend(payload['secondKeyword']).extend(payload['thirdKeyword'])
         #input = request.args.get('input')
         if input_list:
