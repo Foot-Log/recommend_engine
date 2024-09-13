@@ -16,7 +16,7 @@ def root():
     return "<h1 style='color:blue'>Hello There!</h1>"
 
 @app.route("/recommend/course", methods=['GET', 'POST'])
-@jwt_required()
+#@jwt_required()
 def model():
     # input parameter - 입력값 str으로 %20 구분해서 연결한 값
     if request.method == "POST":
@@ -31,7 +31,6 @@ def model():
             
             # json 형식으로 변환
         else:
-            
             prediction = {'course_id': ['2547514', '2547399', '2549270', '2547444', '2547535', '2549163', '2549164', '2549273', '2549170', '2508718']}
         
     return make_response(prediction, 200)
