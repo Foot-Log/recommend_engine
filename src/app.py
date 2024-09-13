@@ -10,6 +10,13 @@ app = Flask(__name__)
 # app.config["JWT_SECRET_KEY"] = "super-secret"
 # jwt = JWTManager(app)
 
+if not app.debug:
+    import logging
+    from logging.handlers import RotatingFileHandler
+    file_handler = RotatingFileHandler('app_server.log')
+    app.logger.addHandler(file_handler)
+    
+
 @app.route("/")
 def root():
     return "<h1 style='color:blue'>Hello There!</h1>"
@@ -34,4 +41,4 @@ def model():
     return make_response(prediction, 200)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
