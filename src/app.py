@@ -1,4 +1,5 @@
 from flask import Flask, request, make_response
+from ..config import config
 import get_preference
 import json
 
@@ -13,7 +14,7 @@ if not app.debug:
 
 @app.route("/")
 def root():
-    return "<h1 style='color:blue'>Hello There!</h1>"
+    return "<h1 style='color:blue'>FootLog Recommendation Engine</h1>"
 
 @app.route("/recommend/course", methods=['GET', 'POST'])
 #@jwt_required()
@@ -44,4 +45,8 @@ def model():
     return make_response(prediction, 200)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=5050, debug=False)
+    app.run(
+        host=config.Config["FLASK_HOST"], 
+        port=config.Config["FLASK_PORT"], 
+        debug=config.Config["FLASK_DEBUG"]
+    )
